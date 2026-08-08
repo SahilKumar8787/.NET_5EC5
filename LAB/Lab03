@@ -1,0 +1,213 @@
+using System;
+using System.Collections.Generic;
+
+class Expense
+{
+    public int Id { get; set; }
+    public string Category { get; set; }
+    public double Amount { get; set; }
+    public string Description { get; set; }
+
+    public Expense(int id, string category, double amount, string description)
+    {
+        Id = id;
+        Category = category;
+        Amount = amount;
+        Description = description;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine(
+            $"ID: {Id} | Category: {Category} | Amount: ₹{Amount} | Description: {Description}"
+        );
+    }
+}
+
+class ExpenseTracker
+{
+    private List<Expense> expenses = new List<Expense>();
+
+    // Add Expense
+    public void AddExpense()
+    {
+        try
+        {
+            Console.WriteLine("\n========== ADD EXPENSE ==========");
+
+            Console.Write("Enter Expense ID: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter Category (Food/Travel/Shopping/Other): ");
+            string category = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                throw new Exception("Category cannot be empty.");
+            }
+
+            Console.Write("Enter Amount: ");
+            double amount = Convert.ToDouble(Console.ReadLine());
+
+            if (amount <= 0)
+            {
+                throw new Exception("Amount must be greater than zero.");
+            }
+
+            Console.Write("Enter Description: ");
+            string description = Console.ReadLine();
+
+            Expense expense =
+                new Expense(id, category, amount, description);
+
+            expenses.Add(expense);
+
+            Console.WriteLine("\n✓ Expense added successfully!");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("\n✗ Invalid input! Please enter numbers correctly.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("\n✗ Error: " + ex.Message);
+        }
+    }
+
+    // Display All Expenses
+    public void ShowExpenses()
+    {
+        Console.WriteLine("\n========== ALL EXPENSES ==========");
+
+        if (expenses.Count == 0)
+        {
+            Console.WriteLine("No expenses available.");
+            return;
+        }
+
+        foreach (Expense expense in expenses)
+        {
+            expense.Display();
+        }
+    }
+
+    // Total Expense
+    public void ShowTotal()
+    {
+        double total = 0;
+
+        foreach (Expense expense in expenses)
+        {
+            total += expense.Amount;
+        }
+
+        Console.WriteLine("\n==================================");
+        Console.WriteLine("TOTAL EXPENSE : ₹" + total);
+        Console.WriteLine("==================================");
+    }
+
+    // Category Summary
+    public void CategorySummary()
+    {
+        Console.WriteLine("\n========== CATEGORY SUMMARY ==========");
+
+        double food = 0;
+        double travel = 0;
+        double shopping = 0;
+        double other = 0;
+
+        foreach (Expense expense in expenses)
+        {
+            switch (expense.Category.ToLower())
+            {
+                case "food":
+                    food += expense.Amount;
+                    break;
+
+                case "travel":
+                    travel += expense.Amount;
+                    break;
+
+                case "shopping":
+                    shopping += expense.Amount;
+                    break;
+
+                default:
+                    other += expense.Amount;
+                    break;
+            }
+        }
+
+        Console.WriteLine("Food      : ₹" + food);
+        Console.WriteLine("Travel    : ₹" + travel);
+        Console.WriteLine("Shopping  : ₹" + shopping);
+        Console.WriteLine("Other     : ₹" + other);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        ExpenseTracker tracker = new ExpenseTracker();
+
+        int choice = 0;
+
+        Console.WriteLine("╔════════════════════════════════════╗");
+        Console.WriteLine("║       EXPENSE TRACKING SYSTEM      ║");
+        Console.WriteLine("╚════════════════════════════════════╝");
+
+        try
+        {
+            do
+            {
+                Console.WriteLine("\n--------------- MENU ---------------");
+                Console.WriteLine("1. Add Expense");
+                Console.WriteLine("2. View All Expenses");
+                Console.WriteLine("3. View Total Expense");
+                Console.WriteLine("4. Category Summary");
+                Console.WriteLine("5. Exit");
+                Console.WriteLine("------------------------------------");
+
+                Console.Write("Enter your choice: ");
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        tracker.AddExpense();
+                        break;
+
+                    case 2:
+                        tracker.ShowExpenses();
+                        break;
+
+                    case 3:
+                        tracker.ShowTotal();
+                        break;
+
+                    case 4:
+                        tracker.CategorySummary();
+                        break;
+
+                    case 5:
+                        Console.WriteLine("\nThank you for using Expense Tracker!");
+                        break;
+
+                    default:
+                        Console.WriteLine("\n✗ Invalid choice!");
+                        break;
+                }
+
+            } while (choice != 5);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("\n✗ Error: Please enter a valid number.");
+        }
+        finally
+        {
+            Console.WriteLine("\nProgram closed successfully.");
+        }
+    }
+}
