@@ -1,0 +1,219 @@
+﻿@model FeedbackManagement.Models.Feedback
+
+@{
+    ViewBag.Title = "Give Feedback";
+}
+
+<div class="feedback-page">
+
+    <div class="feedback-card">
+
+        <div class="feedback-header">
+            <div class="icon">★</div>
+            <h1>Share Your Feedback</h1>
+            <p>Your opinion helps us improve our service.</p>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="success-message">
+                ✓ @TempData["Success"]
+            </div>
+        }
+
+        @using (Html.BeginForm("Create", "Feedback", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter your full name"
+                })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter your email address",
+                    type = "email"
+                })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Rating)
+
+                @Html.DropDownListFor(
+                    m => m.Rating,
+                    new SelectList(new[]
+                    {
+                        "Excellent",
+                        "Very Good",
+                        "Good",
+                        "Average",
+                        "Poor"
+                    }),
+                    "Select your rating",
+                    new { @class = "form-control" }
+                )
+
+                @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "error" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Comment)
+
+                @Html.TextAreaFor(m => m.Comment, new
+                {
+                    @class = "form-control message-box",
+                    placeholder = "Write your feedback here...",
+                    rows = "5"
+                })
+
+                @Html.ValidationMessageFor(m => m.Comment, "", new { @class = "error" })
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit Feedback
+            </button>
+        }
+
+        <div class="management-link">
+            <a href="@Url.Action("Index", "Feedback")">
+                Feedback Management →
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+    .feedback-page {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: #f4f6fb;
+    }
+
+    .feedback-card {
+        width: 100%;
+        max-width: 600px;
+        background: white;
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+    }
+
+    .feedback-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .icon {
+        width: 55px;
+        height: 55px;
+        margin: auto;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .feedback-header h1 {
+        color: #243b75;
+        margin: 15px 0 5px;
+        font-size: 30px;
+    }
+
+    .feedback-header p {
+        color: #777;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #243b75;
+            margin-bottom: 7px;
+        }
+
+    .form-control {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #d5dbea;
+        border-radius: 9px;
+        font-size: 15px;
+        background: #fafbff;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #5b4bea;
+            box-shadow: 0 0 0 3px rgba(91,75,234,0.12);
+        }
+
+    .message-box {
+        resize: vertical;
+    }
+
+    .error {
+        display: block;
+        color: #dc3545;
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    .success-message {
+        background: #e9f9ef;
+        color: #198754;
+        padding: 13px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .submit-btn {
+        width: 100%;
+        border: none;
+        padding: 13px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+    .management-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .management-link a {
+            color: #5146d8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+</style>

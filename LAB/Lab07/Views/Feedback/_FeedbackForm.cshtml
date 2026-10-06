@@ -1,0 +1,108 @@
+﻿@model FeedbackManagement.Models.Feedback
+
+<div class="form-card">
+
+    <div class="form-title">
+        <h2>➕ Add New Feedback</h2>
+        <p>Enter customer feedback details below</p>
+    </div>
+
+    @using (Html.BeginForm("Index", "Feedback", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.Name)
+
+                @Html.TextBoxFor(m => m.Name, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter full name"
+                })
+
+                @Html.ValidationMessageFor(
+                    m => m.Name,
+                    "",
+                    new { @class = "error" }
+                )
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.Email)
+
+                @Html.TextBoxFor(m => m.Email, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter email address"
+                })
+
+                @Html.ValidationMessageFor(
+                    m => m.Email,
+                    "",
+                    new { @class = "error" }
+                )
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.Rating)
+
+            @Html.DropDownListFor(
+                m => m.Rating,
+                new SelectList(new[]
+                {
+                    "Excellent",
+                    "Very Good",
+                    "Good",
+                    "Average",
+                    "Poor"
+                }),
+                "Select Rating",
+                new { @class = "form-control" }
+            )
+
+            @Html.ValidationMessageFor(
+                m => m.Rating,
+                "",
+                new { @class = "error" }
+            )
+
+        </div>
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.Comments)
+
+            @Html.TextAreaFor(m => m.Comments, new
+            {
+                @class = "form-control",
+                rows = "4",
+                placeholder = "Write your feedback..."
+            })
+
+            @Html.ValidationMessageFor(
+                m => m.Comments,
+                "",
+                new { @class = "error" }
+            )
+
+        </div>
+
+
+        <button type="submit" class="submit-btn">
+            Submit Feedback
+        </button>
+    }
+
+</div>
