@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Smart Campus Dashboard</h2>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white p-3">
+            <h5>Total Students</h5>
+            <h2>@ViewBag.TotalStudents</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white p-3">
+            <h5>Total Services</h5>
+            <h2>@ViewBag.TotalServices</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white p-3">
+            <h5>Total Requests</h5>
+            <h2>@ViewBag.TotalRequests</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark p-3">
+            <h5>Pending Requests</h5>
+            <h2>@ViewBag.PendingRequests</h2>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h4>Quick Navigation</h4>
+
+<a href="/Students" class="btn btn-primary">Students</a>
+<a href="/Services" class="btn btn-success">Services</a>
+<a href="/ServiceRequests" class="btn btn-info">Service Requests</a>

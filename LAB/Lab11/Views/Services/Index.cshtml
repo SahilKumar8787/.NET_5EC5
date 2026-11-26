@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SmartCampusPortal.Models.CampusService>
+
+@{
+    ViewData["Title"] = "Campus Services";
+}
+
+<h2>Campus Services</h2>
+
+<p>
+    <a href="/api/ServicesApi" class="btn btn-primary">
+        View Services API
+    </a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Service ID</th>
+            <th>Service Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)
+        {
+            <tr>
+                <td>@service.ServiceId</td>
+                <td>@service.ServiceName</td>
+                <td>@service.Description</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@service.ServiceId"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

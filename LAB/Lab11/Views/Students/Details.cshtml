@@ -1,0 +1,19 @@
+﻿@model SmartCampusPortal.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h2>Student Details</h2>
+
+<div class="card p-3">
+    <p><strong>ID:</strong> @Model.StudentId</p>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Course:</strong> @Model.Course</p>
+    <p><strong>Semester:</strong> @Model.Semester</p>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back to Students
+    </a>
+</div>

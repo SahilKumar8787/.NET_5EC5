@@ -1,0 +1,20 @@
+﻿@model SmartCampusPortal.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Request Details";
+}
+
+<h2>Service Request Details</h2>
+
+<div class="card p-3">
+    <p><strong>Request ID:</strong> @Model.RequestId</p>
+    <p><strong>Student:</strong> @Model.Student?.Name</p>
+    <p><strong>Service:</strong> @Model.CampusService?.ServiceName</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Date:</strong> @Model.RequestDate.ToString("dd-MM-yyyy")</p>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back to Requests
+    </a>
+</div>

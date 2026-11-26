@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SmartCampusPortal.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h2>Student List</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Semester</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentId</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Course</td>
+                <td>@student.Semester</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@student.StudentId"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SmartCampusPortal.Models.ServiceRequest>
+
+@{
+    ViewData["Title"] = "Service Requests";
+}
+
+<h2>Service Requests</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Student</th>
+            <th>Service</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.RequestId</td>
+                <td>@request.Student?.Name</td>
+                <td>@request.CampusService?.ServiceName</td>
+                <td>@request.Description</td>
+                <td>@request.Status</td>
+                <td>@request.RequestDate.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@request.RequestId"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
